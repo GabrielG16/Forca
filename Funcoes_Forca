@@ -1,0 +1,61 @@
+def menu():
+    tipo=0
+    while tipo == 0:
+        tipo = 1
+        opcao = (input("Digite o que deseja realizar\n"
+                          "1- Chutar letra\n"
+                          "2- Chutar a palavra\n"))
+        if opcao.isdigit() == False:
+            tipo=0
+            print("Opcao inválida!")
+
+    return int(opcao)
+
+
+def display_erros(palavra, erro):
+    if erro == 1:
+        print("|------\n|      |\n|      O\n|\n|\n|\n__")
+    if erro == 2:
+        print("|------\n|      |\n|      O\n|      |\n|\n|\n__")
+    if erro == 3:
+        print("""|------\n|      |\n|      O\n|     /| \n|\n|\n__""")
+    if erro == 4:
+        print("""|------\n|      |\n|      O\n|     /|\ \n|\n|\n__""")
+    if erro == 5:
+        print("""|------\n|      |\n|      O\n|     /|\ \n|      |\n|     /\ \n__        FIM DE JOGO!""")
+        print(f"A palavra era: {palavra}")
+        print("Deseja jogar novamente? S/N")
+
+
+def buscar_letra(palavra, erro, caracteres, letra_chute):
+    aux = 0 # controle do laço
+    while aux == 0:
+        letra = str(input("Digite a letra desejada: ").upper())
+        aux = 1
+        if len(letra_chute) != 0:
+            if letra in letra_chute:
+                aux = 0
+                print("Letra já utilizada!\n")
+                print("Letras já utilizadas: ", letra_chute)
+        if aux == 1: # passou do loop, vai passar a contar nas letras utilizadas
+            letra_chute.append(letra)
+    count = 0
+    palavra_fin = ""
+    for index, busca in enumerate(palavra):
+        if letra == busca:
+            caracteres[index] = palavra[index]
+            count += 1
+    if count != 0:
+        print(f"A palavra contém {count} letra(s) {letra}")
+        for i in range(0, len(palavra)):
+           # palavra_fin+=caracteres[i]
+            print(caracteres[i], end=" ")
+        palavra_fin = palavra_fin.join(caracteres)
+        print("\n")
+
+        return erro, palavra_fin
+    else:
+        print("A palavra não contém a letra digitada!!")
+        erro += 1
+        display_erros(palavra, erro)
+        return erro, palavra_fin
