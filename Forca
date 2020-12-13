@@ -1,0 +1,35 @@
+from func.Funcoes import *
+resp = "S"
+while resp == "S":
+    palavra = str(input("Defina a palavra a ser adivinhada: ")).upper()
+    caracteres = [] # visualização da palavra escolhida para o usuário conforme ele completa o jogo
+    letra_chute =[] # lista de letras já utilizadas na partida. Certas ou erradas.
+    for i in range(0, len(palavra)):
+        if palavra[i] != " ":
+            caracteres.append("_")
+            print(caracteres[i], end=" ")
+        else:
+            caracteres.append(" ")
+            print(caracteres[i], end=" ")
+    print("")
+    erro = 0 # define quantos erros o jogador já cometeu na partida
+    acertos = 0 # Define que quando todas as letras certas forem postas, o jogador será vencedor
+    opcao = menu()
+    while 0 < opcao < 3:
+        if opcao == 1:
+            erro, palavra_final = buscar_letra(palavra, erro, caracteres, letra_chute)
+            if palavra_final == palavra:
+                print("Parabéns, você ganhou!")
+                break
+            if erro == 5:
+                break
+            opcao = menu ()
+        if opcao == 2:
+            chute = str(input("Digite a palavra do jogo: ")).upper()
+            if chute == palavra:
+                print("Parabéns, você acertou !!")
+                break
+            else:
+                print("Palavra incorreta! Tente novamente")
+                opcao = menu ()
+    resp = input(" Deseja jogar novamente? S/N ").upper()
